@@ -1,0 +1,11 @@
+tests:
+  - tests/**/*
+
+core:
+  - purify/**/*
+
+dependencies:
+  - Pipfile*
+
+internal:
+  - ./CHANGES.md
