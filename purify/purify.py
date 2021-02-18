@@ -2,11 +2,13 @@
 import copy
 import inspect
 from typing import Callable, Dict, TypeVar, Union, cast, overload
+from functools import wraps
 
 F = TypeVar("F", bound=Callable)
 
 
 def _purify_by_name_or_pos(purify_strategy: Callable, pos: int, name: str, f: F) -> F:
+    @wraps(f)
     def purified(*args, **kwargs):
         if name in kwargs:
             kwargs = {**kwargs, name: purify_strategy(kwargs[name])}
