@@ -51,6 +51,12 @@ transform to become pure without further ado.
 def rename_tree(name: str, tree: Tree) -> Tree:
     tree.name = tree
     return tree
+
+tree = Tree('Felicity')
+dtree = rename_tree('Daniella', tree)
+
+print(tree.name) # 'Felicity'
+print(dtree.name) # 'Daniella'
 ```
 
 ### Shallow copy vs deepcopy
