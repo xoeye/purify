@@ -105,7 +105,7 @@ def lay_in_all_nests(lay: int, tree: Tree) -> Tree:
 
 ### Argument name
 
-It's highly recommended to follow a convention where the object that
+It's highly recommended following a convention where the object that
 you're mutating is the last positional argument to your function. This
 is generally better for the composition of many partially-applied
 functions transforming the same object.
