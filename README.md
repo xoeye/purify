@@ -46,6 +46,13 @@ single one of the arguments will be modified, and by performing a
 behind-the-scenes shallow copy of that object, allows the object
 transform to become pure without further ado.
 
+```
+@purify
+def rename_tree(name: str, tree: Tree) -> Tree:
+    tree.name = tree
+    return tree
+```
+
 ### Shallow copy vs deepcopy
 
 In rudimentary tests with objects of size < 400 KB, `deepcopy` was
@@ -87,7 +94,7 @@ def lay_in_all_nests(add: int, tree: Tree) -> Tree:
     return tree
 ```
 
-Could be replaced with the equally pure and less expensive (depending on the size of the Tree):
+Could be replaced with the equally pure, and less copy-expensive:
 
 ```
 @purify
@@ -105,7 +112,7 @@ def lay_in_all_nests(lay: int, tree: Tree) -> Tree:
 
 ### Argument name
 
-It's highly recommended following a convention where the object that
+It's highly recommended to follow a convention where the object that
 you're mutating is the last positional argument to your function. This
 is generally better for the composition of many partially-applied
 functions transforming the same object.
@@ -117,5 +124,5 @@ purified.
 
 ### Deepcopy
 
-As above, if you have a need for deepcopying, you only need to pass
-`deep=True` to the decorator to accomplish this.
+As above, if you have a need for deepcopying, you need only to pass
+`deep=True` to the decorator.
