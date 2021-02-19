@@ -33,10 +33,10 @@ jobs:
       - name: Set release notes name
         run: |
           export RELEASE_NAME_VERSION=${{ github.event.release.name }}
-          echo "RELEASE_NAME_VERSION=${RELEASE_NAME_VERSION:1}" >> $GITHUB_ENV
+          echo "RELEASE_NAME_VERSION=${RELEASE_NAME_VERSION}" >> $GITHUB_ENV
       - name: Ensure new version is also set in CHANGES.md
         run: |
-          grep --regexp "\[${RELEASE_NAME_VERSION}\]" CHANGES.md
+          grep --regexp "${RELEASE_NAME_VERSION}" CHANGES.md
       - name: Setup & Build
         run: |
           python -m pip install --upgrade pip
