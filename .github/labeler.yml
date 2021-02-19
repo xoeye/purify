@@ -9,3 +9,6 @@ dependencies:
 
 internal:
   - ./CHANGES.md
+
+documentation:
+  - ./README.md
