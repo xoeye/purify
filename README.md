@@ -114,6 +114,20 @@ def lay_in_all_nests(lay: int, tree: Tree) -> Tree:
     return tree
 ```
 
+#### How to visually parse shallowly pure functions
+
+Some effort is required to use shallow-copy functions properly,
+whereas `deepcopy` makes your function trivially pure. How to focus
+that effort?
+
+A good rule of thumb is that the object being purified must only ever
+be referenced with a single dot (`.`), e.g. `tree.nests`, and usage of
+that dotted name must either be read-only or direct assignment to that
+name.  E.g., `tree.nests[i] = foo` is a no-no, because the
+left-hand-side of the statement is not the bare name `nests`, but
+something that directs its activity into the list itself.
+
+
 ## Advanced Usage:
 
 ### Argument name
