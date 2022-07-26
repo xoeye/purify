@@ -9,9 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: python:3.9
-      credentials:
-        username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOCKERHUB_PASSWORD }}
     environment: pypi
     steps:
       - uses: actions/checkout@v2
