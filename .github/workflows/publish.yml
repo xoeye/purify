@@ -7,17 +7,20 @@ on:
 jobs:
   upload:
     runs-on: ubuntu-latest
+    container:
+      image: python:3.9
+      credentials:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
     environment: pypi
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v2
-        with:
-          python-version: '3.9'
+
       - name: Set release notes name
         run: |
           export RELEASE_NAME_VERSION=${{ github.event.release.name }}
           echo "RELEASE_NAME_VERSION=${RELEASE_NAME_VERSION}" >> $GITHUB_ENV
+
       - name: Ensure new version is also set in CHANGES.md
         run: |
           grep --regexp "${RELEASE_NAME_VERSION}" CHANGES.md
