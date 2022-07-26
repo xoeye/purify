@@ -1,3 +1,6 @@
+### 0.2.3
+Publishing under python 3.9. No code changes.
+
 ### 0.2.2
 
 Add `py.typed` so that mypy will inspect the package.
