@@ -373,7 +373,7 @@ wheels = [
 [[package]]
 name = "purify"
 version = "0.3.0"
-source = { virtual = "." }
+source = { editable = "." }
 
 [package.dev-dependencies]
 dev = [

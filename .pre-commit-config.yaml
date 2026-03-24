@@ -13,11 +13,11 @@ repos:
       - id: mixed-line-ending
       - id: check-merge-conflict
 
-  - repo: https://github.com/ambv/black
+  - repo: https://github.com/psf/black
     rev: 26.3.1
     hooks:
       - id: black
-        language_version: python3.12
+        language_version: python3.10
 
   - repo: https://github.com/adrienverge/yamllint
     rev: v1.38.0
@@ -32,9 +32,7 @@ repos:
         language: system
         types: [python]
         require_serial: true
-        exclude: ^(tests)/
-        args:
-          - --fail-under 8.5
+        exclude: ^tests/ # must match pyproject.toml
 
   - repo: local
     hooks:
@@ -44,8 +42,5 @@ repos:
         language: system
         types: [python]
         require_serial: true
-        exclude: ^(tests)/
         args:
           - --show-traceback
-          - --ignore-missing-imports
-          - --check-untyped-defs

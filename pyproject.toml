@@ -1,6 +1,9 @@
 [project]
 name = "purify"
-description = "Pythonic object-mutator transforms as pure functions."
+description = "Pythonic object-mutator transforms as pure functions"
+authors = [
+    { name = "Peter Gaultney", email = "pgaultney@xoi.io" }
+]
 version = "0.3.0"
 requires-python = ">=3.10,<3.15"
 
@@ -15,3 +18,19 @@ dev = [
 [[tool.uv.index]]
 name = "pypi"
 url = "https://pypi.org/simple"
+
+[tool.black]
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pylint.main]
+fail-under = 8.5
+ignore = ["tests"] # must match pre-commit
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
