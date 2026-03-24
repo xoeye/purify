@@ -1,0 +1,17 @@
+[project]
+name = "purify"
+description = "Pythonic object-mutator transforms as pure functions."
+version = "0.3.0"
+requires-python = ">=3.10,<3.15"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1,<2.0.0",
+    "pylint>=4.0.5,<5.0.0",
+    "pytest-cov>=7.1.0,<8.0.0",
+    "pytest>=9.0.2,<10.0.0",
+]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"

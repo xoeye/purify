@@ -14,32 +14,37 @@ repos:
       - id: check-merge-conflict
 
   - repo: https://github.com/ambv/black
-    rev: stable
+    rev: 26.3.1
     hooks:
       - id: black
-        language_version: python3.7
+        language_version: python3.12
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.11.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
 
-  # this pylint wrapper lets us set a required score
-  - repo: git@github.com:coldnight/pre-commit-pylint.git
-    rev: v0.0.3
+  - repo: local
     hooks:
-      - id: pylint-score-limit
+      - id: pylint-uv
+        name: pylint-uv
+        entry: uv run pylint
+        language: system
+        types: [python]
+        require_serial: true
+        exclude: ^(tests)/
         args:
-          - --limit=8.5
-          - --rcfile=./.pylintrc
+          - --fail-under 8.5
 
   - repo: local
     hooks:
-      - id: mypy-env
-        name: mypy-env
-        entry: ./env_runner.py mypy
+      - id: mypy-uv
+        name: mypy-uv
+        entry: uv run mypy
         language: system
         types: [python]
+        require_serial: true
+        exclude: ^(tests)/
         args:
           - --show-traceback
           - --ignore-missing-imports
