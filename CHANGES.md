@@ -1,3 +1,8 @@
+## 0.3.0
+
+- Added support for Python 3.11, 3.12, 3.13, and 3.14.
+- Dropped support for Python 3.7, 3.8, and 3.9.
+
 ### 0.2.3
 Publishing under python 3.9. No code changes.
 
