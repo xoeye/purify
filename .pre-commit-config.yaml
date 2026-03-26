@@ -3,44 +3,48 @@ fail_fast: true
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.2.3
+    rev: v6.0.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
-      - id: flake8
       - id: check-case-conflict
       - id: check-json
       - id: mixed-line-ending
       - id: check-merge-conflict
 
-  - repo: https://github.com/ambv/black
-    rev: stable
+  - repo: https://github.com/psf/black
+    rev: 26.3.1
     hooks:
       - id: black
-        language_version: python3.7
+        language_version: python3.10
+
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.3.0
+    hooks:
+      - id: flake8
 
   - repo: https://github.com/adrienverge/yamllint
-    rev: v1.11.1
+    rev: v1.38.0
     hooks:
       - id: yamllint
 
-  # this pylint wrapper lets us set a required score
-  - repo: git@github.com:coldnight/pre-commit-pylint.git
-    rev: v0.0.3
+  - repo: local
     hooks:
-      - id: pylint-score-limit
-        args:
-          - --limit=8.5
-          - --rcfile=./.pylintrc
+      - id: pylint-uv
+        name: pylint-uv
+        entry: uv run pylint
+        language: system
+        types: [python]
+        require_serial: true
+        exclude: ^tests/ # must match pyproject.toml
 
   - repo: local
     hooks:
-      - id: mypy-env
-        name: mypy-env
-        entry: ./env_runner.py mypy
+      - id: mypy-uv
+        name: mypy-uv
+        entry: uv run mypy
         language: system
         types: [python]
+        require_serial: true
         args:
           - --show-traceback
-          - --ignore-missing-imports
-          - --check-untyped-defs

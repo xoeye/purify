@@ -1,8 +1,10 @@
 """Make Pythonic single-argument mutator transforms into properly pure functions"""
+
 import copy
 import inspect
-from typing import Callable, Dict, TypeVar, Union, cast, overload
+from collections.abc import Callable
 from functools import wraps
+from typing import TypeVar, cast, overload
 
 F = TypeVar("F", bound=Callable)
 
@@ -32,18 +34,14 @@ def _find_last_pos_arg_name(f: Callable) -> str:
 
 
 @overload
-def purify(arg: F) -> F:
-    ...
+def purify(arg: F) -> F: ...
 
 
 @overload
-def purify(arg: str = "", *, deep: bool = False) -> Callable[[F], F]:
-    ...
+def purify(arg: str = "", *, deep: bool = False) -> Callable[[F], F]: ...
 
 
-def purify(
-    arg: Union[str, F] = "", *, deep: bool = False
-) -> Union[F, Callable[[F], F]]:
+def purify(arg: str | F = "", *, deep: bool = False) -> F | Callable[[F], F]:
     """Makes a Python mutator transform into a shallowly or deeply pure
     mutator of a single argument, chosen by name or automatically.
 
@@ -55,7 +53,7 @@ def purify(
     the last positional argument is the one you want to purify.
 
     """
-    copy_strategy: Dict[bool, Callable] = {True: copy.deepcopy}
+    copy_strategy: dict[bool, Callable] = {True: copy.deepcopy}
     purify_name_or_f = arg
 
     if isinstance(purify_name_or_f, str):

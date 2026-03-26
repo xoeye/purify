@@ -5,27 +5,19 @@ on:
     types: [published]
 
 jobs:
-  upload:
+  publish:
     runs-on: ubuntu-latest
-    container:
-      image: python:3.9
     environment: pypi
     steps:
-      - uses: actions/checkout@v3
-
-      - name: Set release notes name
-        run: |
-          export RELEASE_NAME_VERSION=${{ github.event.release.name }}
-          echo "RELEASE_NAME_VERSION=${RELEASE_NAME_VERSION}" >> $GITHUB_ENV
-
-      - name: Ensure new version is also set in CHANGES.md
-        run: |
-          grep --regexp "${RELEASE_NAME_VERSION}" CHANGES.md
-
-      - run: python setup.py sdist bdist_wheel
-
-      - name: pypi-publish
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+      - uses: actions/checkout@v6
+      - uses: astral-sh/setup-uv@v7
         with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
+          version: ">=0.10.0,<0.11.0"
+      - name: Verify changelog entry exists
+        run: grep --regexp "${{ github.event.release.name }}" CHANGES.md
+      - name: Build
+        run: uv build
+      - name: Publish to PyPI
+        run: uv publish
+        env:
+          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_API_TOKEN }}

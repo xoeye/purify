@@ -1,0 +1,47 @@
+[project]
+name = "purify"
+description = "Pythonic object-mutator transforms as pure functions"
+authors = [
+    { name = "Peter Gaultney", email = "pgaultney@xoi.io" }
+]
+version = "0.3.0"
+requires-python = ">=3.10,<3.15"
+readme = "README.md"
+license = { file = "LICENSE" }
+classifiers = [
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+]
+
+[project.urls]
+Homepage = "https://github.com/xoeye/purify"
+
+[dependency-groups]
+dev = [
+    "mypy>=1.19.1,<2.0.0",
+    "pylint>=4.0.5,<5.0.0",
+    "pytest-cov>=7.1.0,<8.0.0",
+    "pytest>=9.0.2,<10.0.0",
+]
+
+[[tool.uv.index]]
+name = "pypi"
+url = "https://pypi.org/simple"
+
+[tool.black]
+target-version = ["py310"]
+
+[tool.mypy]
+python_version = "3.10"
+check_untyped_defs = true
+
+[tool.pylint.main]
+fail-under = 8.5
+ignore = ["tests"] # must match pre-commit
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,14 +1,22 @@
+---
 tests:
-  - tests/**/*
+  - changed-files:
+      - any-glob-to-any-file: tests/**/*
 
 core:
-  - purify/**/*
+  - changed-files:
+      - any-glob-to-any-file: purify/**/*
 
 dependencies:
-  - Pipfile*
+  - changed-files:
+      - any-glob-to-any-file:
+          - pyproject.toml
+          - uv.lock
 
 internal:
-  - ./CHANGES.md
+  - changed-files:
+      - any-glob-to-any-file: CHANGES.md
 
 documentation:
-  - ./README.md
+  - changed-files:
+      - any-glob-to-any-file: README.md
